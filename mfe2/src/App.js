@@ -1,16 +1,23 @@
 import React from "react";
 
-const App = () => {
+const App = ({ carts, setCarts }) => {
+  const handleDeleteCart = (index) => {
+    setCarts(carts.filter((_, i) => i !== index));
+  };
   return (
-    <div
-      style={{
-        margin: "10px",
-        padding: "10px",
-        textAlign: "center",
-        backgroundColor: "cyan",
-      }}
-    >
-      <h1>Cart Applications updated</h1>
+    <div>
+      <h1>Cart</h1>
+      <div className="flex gap-2 bg-gray-200 flex-col">
+        {carts?.map((cart) => (
+          <div className="flex gap-2">
+            <p>{cart.name}</p>
+            <p>{cart.price}</p>
+            <button onClick={() => handleDeleteCart(carts.indexOf(cart))}>
+              Delete
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
