@@ -72,7 +72,7 @@
       "federationContainerName": "store",
       "moduleName": "store",
       "alias": "store",
-      "entry": "http://localhost:3003/remoteEntry.js"
+      "entry": "https://meel516.github.io/mfe/store/remoteEntry.js"
     }
   ],
   "exposes": []
