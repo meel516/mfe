@@ -2,7 +2,7 @@ export const mfConfig = {
   name: "home",
   exposes: {},
   remotes: {
-    store: "store@http://localhost:3003/remoteEntry.js", // remote name@URL
+    store: "store@https://meel516.github.io/mfe/store/remoteEntry.js", // remote name@URL
   },
   shared: ["react", "react-dom"],
 };
