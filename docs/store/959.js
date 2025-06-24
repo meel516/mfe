@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkstore=self.webpackChunkstore||[]).push([["959"],{70:function(e,t,r){r.r(t);var s=r(250),a=r(623);r(898),a.createRoot(document.getElementById("app")).render((0,s.jsx)(()=>(0,s.jsxs)("div",{className:"mt-10 text-3xl mx-auto max-w-6xl",children:[(0,s.jsx)("div",{children:"Name: store"}),(0,s.jsx)("div",{children:"Framework: react-19"})]}),{}))},898:function(e,t,r){e.exports={}}}]);
+//# sourceMappingURL=959.js.map

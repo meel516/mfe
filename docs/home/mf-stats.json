@@ -1,0 +1,91 @@
+{
+  "id": "home",
+  "name": "home",
+  "metaData": {
+    "name": "home",
+    "type": "app",
+    "buildInfo": {
+      "buildVersion": "0.0.1",
+      "buildName": "home"
+    },
+    "remoteEntry": {
+      "name": "",
+      "path": "",
+      "type": "global"
+    },
+    "types": {
+      "path": "",
+      "name": "",
+      "zip": ".",
+      "api": "."
+    },
+    "globalName": "home",
+    "pluginVersion": "0.8.12",
+    "prefetchInterface": false,
+    "publicPath": "http://localhost:3001/"
+  },
+  "shared": [
+    {
+      "singleton": true,
+      "requiredVersion": "^19.1.0",
+      "shareScope": "default",
+      "import": "react-dom",
+      "name": "react-dom",
+      "version": "19.1.0",
+      "eager": false,
+      "id": "home:react-dom",
+      "assets": {
+        "js": {
+          "async": [
+            "612.js"
+          ],
+          "sync": [
+            "542.js",
+            "675.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": []
+    },
+    {
+      "singleton": true,
+      "requiredVersion": "^19.1.0",
+      "shareScope": "default",
+      "import": "react",
+      "name": "react",
+      "version": "19.1.0",
+      "eager": false,
+      "id": "home:react",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "612.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      },
+      "usedIn": []
+    }
+  ],
+  "remotes": [
+    {
+      "alias": "store",
+      "consumingFederationContainerName": "home",
+      "federationContainerName": "store",
+      "moduleName": "store",
+      "usedIn": [
+        "src/App.tsx + 12 modules"
+      ],
+      "entry": "http://localhost:3003/remoteEntry.js"
+    }
+  ],
+  "exposes": []
+}

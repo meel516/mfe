@@ -1,0 +1,92 @@
+{
+  "id": "store",
+  "name": "store",
+  "metaData": {
+    "name": "store",
+    "type": "app",
+    "buildInfo": {
+      "buildVersion": "0.0.1",
+      "buildName": "store"
+    },
+    "remoteEntry": {
+      "name": "remoteEntry.js",
+      "path": "",
+      "type": "global"
+    },
+    "types": {
+      "path": "",
+      "name": "",
+      "zip": "@mf-types.zip",
+      "api": "@mf-types.d.ts"
+    },
+    "globalName": "store",
+    "pluginVersion": "0.8.12",
+    "prefetchInterface": false,
+    "publicPath": "http://localhost:3003/"
+  },
+  "shared": [
+    {
+      "id": "store:react-dom",
+      "name": "react-dom",
+      "version": "19.1.0",
+      "singleton": true,
+      "requiredVersion": "^19.1.0",
+      "assets": {
+        "js": {
+          "async": [
+            "612.js"
+          ],
+          "sync": [
+            "542.js",
+            "675.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      }
+    },
+    {
+      "id": "store:react",
+      "name": "react",
+      "version": "19.1.0",
+      "singleton": true,
+      "requiredVersion": "^19.1.0",
+      "assets": {
+        "js": {
+          "async": [],
+          "sync": [
+            "612.js"
+          ]
+        },
+        "css": {
+          "async": [],
+          "sync": []
+        }
+      }
+    }
+  ],
+  "remotes": [],
+  "exposes": [
+    {
+      "id": "store:store",
+      "name": "store",
+      "assets": {
+        "js": {
+          "sync": [
+            "__federation_expose_store.js"
+          ],
+          "async": [
+            "612.js"
+          ]
+        },
+        "css": {
+          "sync": [],
+          "async": []
+        }
+      },
+      "path": "./store"
+    }
+  ]
+}
