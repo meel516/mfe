@@ -1,0 +1,99 @@
+import React, { useEffect, useState } from "react";
+import { Field, Form, Formik } from "formik";
+import axios from "axios";
+
+const User = () => {
+  const [initialValues, setInitialValues] = useState({
+    name: "John Doe",
+    email: "johndoe@example.com",
+    profilePic: "https://i.pravatar.cc/150?img=3", // optional avatar
+  });
+  useEffect(() => {
+    (async () => {
+      const res = await axios.get(
+        "https://nodejstarter.onrender.com/v1/users/user",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (res.data.success) {
+        setInitialValues(res.data.data);
+      }
+    })();
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-10 px-6">
+      <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-xl p-8 flex flex-col md:flex-row items-center gap-10">
+        {/* Profile Picture */}
+        <div className="flex-shrink-0">
+          <img
+            src={initialValues.profilePic}
+            alt="Profile"
+            className="w-40 h-40 rounded-full object-cover shadow-md border-2 border-indigo-500"
+          />
+        </div>
+
+        {/* Profile Info */}
+        <div className="flex-1 w-full">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            User Profile
+          </h2>
+
+          <Formik
+            initialValues={initialValues}
+            onSubmit={async (values) => {
+              await axios.patch(
+                "https://nodejstarter.onrender.com/v1/users/user",
+                values,
+                {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                }
+              );
+            }}
+            enableReinitialize
+          >
+            {({ handleSubmit }) => (
+              <Form onSubmit={handleSubmit} className="space-y-6">
+                {/* Name - Editable */}
+                <div className="flex flex-col">
+                  <span className="text-sm text-gray-500">Name</span>
+                  <Field
+                    name="name"
+                    className="text-lg font-medium text-gray-900 bg-transparent focus:outline-none border-none px-0 py-1"
+                  />
+                </div>
+
+                {/* Email - Read Only */}
+                <div className="flex flex-col">
+                  <span className="text-sm text-gray-500">Email</span>
+                  <Field
+                    name="email"
+                    disabled
+                    className="text-lg font-medium text-gray-500 bg-gray-100 px-3 py-2 rounded-md cursor-not-allowed"
+                  />
+                </div>
+
+                {/* (Optional) Save Button */}
+                <div className="pt-4">
+                  <button
+                    type="submit"
+                    className="bg-indigo-600 text-white font-medium px-6 py-2 rounded-md hover:bg-indigo-700 transition"
+                  >
+                    Update Profile
+                  </button>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default User;
