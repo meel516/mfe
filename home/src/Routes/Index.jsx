@@ -8,6 +8,7 @@ import BlogView from "../Pages/BlogView.tsx";
 import Blogs from "../Pages/Blogs.tsx";
 import Home from "../Pages/Home.jsx";
 import BlogsView from "../Pages/BlogsView.tsx";
+import Register from "../Pages/Register.tsx";
 const Index = () => {
   const allRoutes = useRoutes([
     {
@@ -27,6 +28,10 @@ const Index = () => {
     {
       path: "/login",
       element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Register />,
     },
     {
       path: "/",
