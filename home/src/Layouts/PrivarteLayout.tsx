@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import Header from "../components/Header";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
-import { useUserState } from "store/store";
+import { setAccessToken, setIsLoggenedIn, setName } from "store/userActions";
+import {useDispatch,useSelector} from "react-redux"
 
 const PrivarteLayout = () => {
   const accessToken = localStorage.getItem("token");
-  const { setAccessToken, setIsLoggenedIn, setName } = useUserState();
+const dispatch =useDispatch()
   const [loading, setLoading] = React.useState(false);
 
   console.log(accessToken);
@@ -28,9 +29,9 @@ const PrivarteLayout = () => {
         if (!res.data.success) {
           window.location.href = "/login";
         } else {
-          setAccessToken(accessToken);
-          setName(res.data.data.email);
-          setIsLoggenedIn(true);
+          dispatch(setAccessToken(accessToken));
+          dispatch(setName(res.data.data.email));
+          dispatch(setIsLoggenedIn(true));
         }
       } catch (error) {
       } finally {

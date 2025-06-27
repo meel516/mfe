@@ -1,2 +1,10 @@
-declare const useUserState: import("zustand").UseBoundStore<import("zustand").StoreApi<unknown>>;
-export { useUserState };
+import { Store } from 'redux';
+export interface RootState {
+    user: {
+        name: string;
+        isLoggenedIn: boolean;
+        accessToken: string;
+    };
+}
+declare const store: Store<RootState>;
+export default store;

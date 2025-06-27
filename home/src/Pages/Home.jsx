@@ -20,19 +20,6 @@ const Home = () => {
   return (
     <div className="bg-gray-50 min-h-screen text-gray-800 flex flex-col">
       {/* Navbar */}
-      <header className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-indigo-600">MyBlog</h1>
-          <nav>
-            <Link
-              to="/login"
-              className="text-white bg-indigo-600 hover:bg-indigo-700 px-5 py-2 rounded-lg text-sm font-semibold transition"
-            >
-              Login
-            </Link>
-          </nav>
-        </div>
-      </header>
 
       {/* Hero Section */}
       <div className="flex-1 flex flex-col justify-center bg-white">

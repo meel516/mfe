@@ -9,11 +9,12 @@ import Blogs from "../Pages/Blogs.tsx";
 import Home from "../Pages/Home.jsx";
 import BlogsView from "../Pages/BlogsView.tsx";
 import Register from "../Pages/Register.tsx";
+import BlogLayout from "../Layouts/BlogLayout.jsx";
 const Index = () => {
   const allRoutes = useRoutes([
     {
       path: "/",
-      element: <Outlet />,
+      element: <PrivateLayout />,
       children: [
         {
           path: "",
@@ -43,7 +44,7 @@ const Index = () => {
         },
         {
           path: "blog",
-          element: <Outlet />,
+          element: <BlogLayout />,
 
           children: [
             {

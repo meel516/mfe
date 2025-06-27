@@ -26,12 +26,14 @@
   },
   "dependencies": {
     "@module-federation/enhanced": "^0.8.9",
+    "@module-federation/runtime": "^0.15.0",
     "axios": "^1.10.0",
     "formik": "^2.4.6",
     "quill": "^2.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-quill-new": "^3.4.6",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.2",
     "yup": "^1.6.1"
   }

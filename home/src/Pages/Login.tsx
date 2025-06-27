@@ -1,12 +1,12 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
-import { useUserState } from "store/store";
+import { setIsLoggenedIn, setName, setAccessToken } from "store/userActions";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
 const Login = () => {
-  const { setIsLoggenedIn, setName, setAccessToken } = useUserState();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
@@ -26,10 +26,10 @@ const Login = () => {
               );
               if (res.data.success) {
                 localStorage.setItem("token", res.data.data.accessToken);
-                setIsLoggenedIn(true);
-                setName(values.email);
+                dispatch(setIsLoggenedIn(true));
+                dispatch(setName(values.email));
                 navigate("/user");
-                setAccessToken(res.data.data.accessToken);
+                dispatch(setAccessToken(res.data.data.accessToken));
               }
             } catch (err) {
               console.error("Login failed", err);
