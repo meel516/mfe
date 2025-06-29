@@ -2,7 +2,7 @@ export const mfConfig = {
   name: "home",
   exposes: {},
   remotes: {
-    store: "store@http://localhost:3003/remoteEntry.js", // remote name@URL
+    store: "store@https://mfe-blog-auth.netlify.app/remoteEntry.js", // remote name@URL
     comments: "comments@http://localhost:3100/remoteEntry.js",
 
   },

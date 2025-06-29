@@ -2,11 +2,11 @@ export const mfConfig = {
   name: "comments",
   filename: "remoteEntry.js",
   exposes: {
-    "./comments": "./src/comment.tsx"
+    "./comments": "./src/Comment.tsx"
   },
 
   remotes: {
-    store: "store@http://localhost:3003/remoteEntry.js", // remote name@URL
+    store: "store@https://mfe-blog-auth.netlify.app/remoteEntry.js", // remote name@URL
     followers: "followers@http://localhost:3200/remoteEntry.js",
   },
   shared: {

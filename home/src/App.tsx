@@ -18,8 +18,9 @@ const App = () => {
         await init({
           remotes: [
             {
-              store: "store@http://localhost:3003/remoteEntry.js",
-              userActions: "store@http://localhost:3003/remoteEntry.js",
+              store: "store@https://mfe-blog-auth.netlify.app/remoteEntry.js",
+              userActions:
+                "store@https://mfe-blog-auth.netlify.app/remoteEntry.js",
               comments: "comments@http://localhost:3100/remoteEntry.js",
             },
           ],
