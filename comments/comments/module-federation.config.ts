@@ -10,8 +10,8 @@ export const mfConfig = {
     followers: "followers@http://localhost:3200/remoteEntry.js",
   },
   shared: {
-    react: { singleton: true, eager: true }, // Make sure React is shared as a singleton
-    "react-dom": { singleton: true, eager: true },
+    react: { singleton: true, requiredVersion: '>=16.8.0' },
+    'react-dom': { singleton: true, requiredVersion: '>=16.8.0' },
     redux: { singleton: true, eager: true },
     "react-redux": { singleton: true, eager: true }, // 👈 IMPORTANT
   },
