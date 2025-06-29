@@ -1,126 +1,208 @@
 import React, { useEffect, useState } from "react";
 import { Field, Form, Formik } from "formik";
 import axios from "axios";
+import { motion } from "framer-motion";
+import { FiEdit2, FiCheck, FiX, FiMail, FiUsers } from "react-icons/fi";
 
-const User = () => {
+const UserProfile = () => {
   const [initialValues, setInitialValues] = useState({
-    name: "John Doe",
-    email: "johndoe@example.com",
-    profilePic: "https://i.pravatar.cc/150?img=3", // optional avatar
+    name: "",
+    email: "",
+    followers: 0,
+    following: 0,
+    bio: "",
   });
+  const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    (async () => {
-      const res = await axios.get(
+    const fetchUserData = async () => {
+      try {
+        const res = await axios.get(
+          "https://nodejstarter.onrender.com/v1/users/user",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        if (res.data.success) {
+          setInitialValues(res.data.data);
+        }
+      } catch (err) {
+        setError(err.response?.data?.message || "Failed to fetch user data");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const handleSubmit = async (values) => {
+    try {
+      const res = await axios.patch(
         "https://nodejstarter.onrender.com/v1/users/user",
+        values,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
+
       if (res.data.success) {
         setInitialValues(res.data.data);
+        setIsEditing(false);
       }
-    })();
-  }, []);
+    } catch (err) {
+      setError(err.response?.data?.message || "Update failed");
+    }
+  };
 
-  return (
-    <div className="min-h-screen bg-gray-50 py-10 px-6">
-      <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-xl p-8 flex flex-col md:flex-row items-center gap-10">
-        {/* Profile Picture */}
-        <div className="flex-shrink-0 text-center md:text-left">
-          {initialValues.profilePic ? (
-            <img
-              src={initialValues.profilePic}
-              alt="Profile"
-              className="w-40 h-40 rounded-full object-cover shadow-md border-2 border-indigo-500"
-            />
-          ) : (
-            <div className="w-40 h-40 rounded-full bg-gray-300 flex items-center justify-center text-2xl font-bold text-white shadow-md border-2 border-indigo-500">
-              {initialValues.name.charAt(0).toUpperCase()}
-            </div>
-          )}
-          <div className="mt-4 text-gray-700">
-            <p className="text-xl font-semibold">{initialValues.name}</p>
-            <p className="text-sm text-gray-500">{initialValues.email}</p>
-          </div>
-        </div>
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+      </div>
+    );
+  }
 
-        {/* Profile Info */}
-        <div className="flex-1 w-full">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            User Profile
-          </h2>
-
-          <Formik
-            initialValues={initialValues}
-            onSubmit={async (values) => {
-              await axios.patch(
-                "https://nodejstarter.onrender.com/v1/users/user",
-                values,
-                {
-                  headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                  },
-                }
-              );
-            }}
-            enableReinitialize
-          >
-            {({ handleSubmit }) => (
-              <Form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name - Editable */}
-                <div className="flex flex-col">
-                  <span className="text-sm text-gray-500">Name</span>
-                  <Field
-                    name="name"
-                    className="text-lg font-medium text-gray-900 bg-transparent focus:outline-none border-b border-gray-300 focus:border-indigo-500 py-1"
-                  />
-                </div>
-
-                {/* Email - Read Only */}
-                <div className="flex flex-col">
-                  <span className="text-sm text-gray-500">Email</span>
-                  <Field
-                    name="email"
-                    disabled
-                    className="text-lg font-medium text-gray-500 bg-gray-100 px-3 py-2 rounded-md cursor-not-allowed"
-                  />
-                </div>
-
-                {/* Followers / Following */}
-                <div className="grid grid-cols-2 gap-6 pt-4">
-                  <div className="bg-indigo-50 p-4 rounded-lg shadow-inner text-center">
-                    <div className="text-2xl font-bold text-indigo-600">
-                      {initialValues.followers || 0}
-                    </div>
-                    <div className="text-sm text-gray-600">Followers</div>
-                  </div>
-                  <div className="bg-indigo-50 p-4 rounded-lg shadow-inner text-center">
-                    <div className="text-2xl font-bold text-indigo-600">
-                      {initialValues.following || 0}
-                    </div>
-                    <div className="text-sm text-gray-600">Following</div>
-                  </div>
-                </div>
-
-                {/* Save Button */}
-                <div className="pt-6">
-                  <button
-                    type="submit"
-                    className="bg-indigo-600 text-white font-medium px-6 py-2 rounded-md hover:bg-indigo-700 transition"
-                  >
-                    Update Profile
-                  </button>
-                </div>
-              </Form>
-            )}
-          </Formik>
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          {error}
         </div>
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"
+    >
+      <div className="max-w-3xl mx-auto">
+        <div className="bg-white rounded-xl shadow-md overflow-hidden">
+          {/* Profile Header */}
+          <div className="bg-indigo-600 p-6 text-white">
+            <div className="flex justify-between items-center">
+              <h1 className="text-2xl font-bold">User Profile</h1>
+              {isEditing ? (
+                <div className="flex space-x-2">
+                  <button
+                    type="submit"
+                    form="profileForm"
+                    className="flex items-center bg-white text-indigo-600 px-3 py-1 rounded-md text-sm font-medium hover:bg-gray-100 transition"
+                  >
+                    <FiCheck className="mr-1" /> Save
+                  </button>
+                  <button
+                    onClick={() => setIsEditing(false)}
+                    className="flex items-center bg-white text-gray-600 px-3 py-1 rounded-md text-sm font-medium hover:bg-gray-100 transition"
+                  >
+                    <FiX className="mr-1" /> Cancel
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="flex items-center bg-white text-indigo-600 px-3 py-1 rounded-md text-sm font-medium hover:bg-gray-100 transition"
+                >
+                  <FiEdit2 className="mr-1" /> Edit Profile
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Profile Content */}
+          <div className="p-6">
+            <Formik
+              initialValues={initialValues}
+              onSubmit={handleSubmit}
+              enableReinitialize
+            >
+              {({ values }) => (
+                <Form id="profileForm" className="space-y-6">
+                  {/* Name Field */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Full Name
+                    </label>
+                    {isEditing ? (
+                      <Field
+                        name="name"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                      />
+                    ) : (
+                      <div className="px-3 py-2 bg-gray-50 rounded-md">
+                        {values.name}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Email Field */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Email Address
+                    </label>
+                    <div className="flex items-center px-3 py-2 bg-gray-50 rounded-md">
+                      <FiMail className="text-gray-400 mr-2" />
+                      {values.email}
+                    </div>
+                  </div>
+
+                  {/* Bio Field */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Bio
+                    </label>
+                    {isEditing ? (
+                      <Field
+                        as="textarea"
+                        name="bio"
+                        rows="3"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                        placeholder="Tell us about yourself..."
+                      />
+                    ) : (
+                      <div className="px-3 py-2 bg-gray-50 rounded-md whitespace-pre-line">
+                        {values.bio || "No bio yet"}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Stats */}
+                  <div className="grid grid-cols-2 gap-4 pt-4">
+                    <div className="bg-indigo-50 p-3 rounded-lg text-center">
+                      <div className="text-xl font-bold text-indigo-600">
+                        {values.followers || 0}
+                      </div>
+                      <div className="text-xs text-gray-600 flex items-center justify-center">
+                        <FiUsers className="mr-1" /> Followers
+                      </div>
+                    </div>
+                    <div className="bg-indigo-50 p-3 rounded-lg text-center">
+                      <div className="text-xl font-bold text-indigo-600">
+                        {values.following || 0}
+                      </div>
+                      <div className="text-xs text-gray-600 flex items-center justify-center">
+                        <FiUsers className="mr-1" /> Following
+                      </div>
+                    </div>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        </div>
+      </div>
+    </motion.div>
   );
 };
 
-export default User;
+export default UserProfile;

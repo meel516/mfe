@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BlogDetail from "../components/BlogDetail";
 import axios from "axios";
+import Comments from "comments/comments";
 
 const BlogsView = () => {
   const [blog, setBlog] = useState({
@@ -10,6 +11,7 @@ const BlogsView = () => {
     image: "",
     user: undefined,
     createdAt: null,
+    _id: "",
   });
   const { id } = useParams();
   useEffect(() => {
@@ -31,6 +33,9 @@ const BlogsView = () => {
         image={blog.image}
         user={blog.user}
       />
+      <div className="mx-8 mt-4">
+        <Comments blogId={id} parentId={null} />
+      </div>
     </div>
   );
 };

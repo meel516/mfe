@@ -1,22 +1,20 @@
 // store.ts
-import { createStore, combineReducers, Store } from 'redux';
-import userReducer from './slices/userSlice.tsx'; // Importing user reducer
-
-// 1. Define Root State Type
-export interface RootState {
-  user: {
-    name: string;
-    isLoggenedIn: boolean;
-    accessToken: string;
-  };
-}
-
-// 2. Combine reducers and get the type for the root state
-const rootReducer = combineReducers({
-  user: userReducer,
+import { configureStore } from "@reduxjs/toolkit";
+import userReducer, { UserState } from "./slices/userSlice.ts";
+import commentsReducer, { commentSlice } from "./slices/commentsSlice.ts";
+export type RootState = {
+  user: UserState;
+  comments: commentSlice;
+};
+const store = configureStore({
+  reducer: {
+    user: userReducer,
+    comments: commentsReducer,
+  },
 });
 
-// 3. Create Store with RootState Type
-const store: Store<RootState> = createStore(rootReducer);
+// Inferred type for the RootState
+
+export type AppDispatch = typeof store.dispatch;
 
 export default store;

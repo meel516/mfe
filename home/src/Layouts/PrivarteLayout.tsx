@@ -2,14 +2,21 @@ import React, { useEffect } from "react";
 import Header from "../components/Header";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
-import { setAccessToken, setIsLoggenedIn, setName } from "store/userActions";
-import {useDispatch,useSelector} from "react-redux"
+import store from "store/store";
+import {
+  setAccessToken,
+  setLoggedIn,
+  setName,
+  setUserId,
+} from "store/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import TechBadge from "../components/TechBadge";
 
 const PrivarteLayout = () => {
   const accessToken = localStorage.getItem("token");
-const dispatch =useDispatch()
+  const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
-
+  console.log(store.getState(), "saleem");
   console.log(accessToken);
   useEffect(() => {
     if (!accessToken) {
@@ -31,7 +38,8 @@ const dispatch =useDispatch()
         } else {
           dispatch(setAccessToken(accessToken));
           dispatch(setName(res.data.data.email));
-          dispatch(setIsLoggenedIn(true));
+          dispatch(setLoggedIn(true));
+          dispatch(setUserId(res.data.data._id));
         }
       } catch (error) {
       } finally {
@@ -46,6 +54,7 @@ const dispatch =useDispatch()
       <Header />
       <section className="mt-[100px] h-[calc(100vh-100px)]">
         <Outlet />
+        <TechBadge />
       </section>
     </div>
   );

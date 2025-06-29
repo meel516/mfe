@@ -3,7 +3,8 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
-
+import "./api/axiosSetup.js";
+import { ToastContainer } from "react-toastify";
 import Index from "./Routes/Index.jsx";
 import { init, loadRemote } from "@module-federation/runtime";
 
@@ -15,11 +16,13 @@ const App = () => {
     async function loadStore() {
       try {
         await init({
-          remotes: [{
-            store: "store@http://localhost:3003/remoteEntry.js",
-            userActions:"store@http://localhost:3003/remoteEntry.js"
-            
-          }],
+          remotes: [
+            {
+              store: "store@http://localhost:3003/remoteEntry.js",
+              userActions: "store@http://localhost:3003/remoteEntry.js",
+              comments: "comments@http://localhost:3100/remoteEntry.js",
+            },
+          ],
         });
 
         const remoteStore = await loadRemote("store/store"); // 🔁 remote exposes './store'
@@ -40,11 +43,14 @@ const App = () => {
   if (!store) return <div>❌ Store not available</div>;
 
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Index />
-      </BrowserRouter>
-    </Provider>
+    <>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Index />
+        </BrowserRouter>
+      </Provider>
+      <ToastContainer />
+    </>
   );
 };
 

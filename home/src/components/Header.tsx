@@ -6,11 +6,13 @@ import { logout } from "store/userActions";
 const Header = () => {
   const user = useSelector((state) => state.user.name);
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.user.isLoggenedIn);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const userDetails = useSelector((state) => state.user);
+  const totalState = useSelector((state) => state);
 
   // Close dropdown if clicking outside
   useEffect(() => {
@@ -22,7 +24,7 @@ const Header = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
+  console.log(user, totalState, "what is user");
   const handleLogout = () => {
     // Clear user state, tokens, or whatever logout involves
     dispatch(logout());

@@ -10,65 +10,61 @@ import Home from "../Pages/Home.jsx";
 import BlogsView from "../Pages/BlogsView.tsx";
 import Register from "../Pages/Register.tsx";
 import BlogLayout from "../Layouts/BlogLayout.jsx";
+import ViewAllBlogs from "../Pages/ViewAllBlogs.tsx";
+import UserStats from "../components/UserStats.tsx";
 const Index = () => {
   const allRoutes = useRoutes([
     {
       path: "/",
       element: <PrivateLayout />,
       children: [
-        {
-          path: "",
-          element: <Home />,
-        },
-        {
-          path: ":id",
-          element: <BlogsView />,
-        },
-      ],
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/register",
-      element: <Register />,
-    },
-    {
-      path: "/",
-      element: <PrivateLayout />,
-      children: [
-        {
-          path: "user",
-          element: <User />,
-        },
+        { path: "", element: <Home /> },
+
         {
           path: "blog",
-          element: <BlogLayout />,
+          element: <Outlet />,
 
           children: [
             {
               path: "",
-              element: <Blogs />,
+              element: <ViewAllBlogs />,
             },
-            {
-              path: "create",
-              element: <CreateBlog />,
-            },
+
             {
               path: ":id",
-              element: <BlogView />,
+              element: <BlogsView />,
+            },
+          ],
+        },
+        {
+          path: "user",
+          element: <BlogLayout />,
+          children: [
+            {
+              path: "",
+              element: <UserStats />,
             },
             {
-              path: "edit/:id",
-              element: <CreateBlog mode="edit" />,
+              path: "blogs",
+              element: <Outlet />,
+              children: [
+                {
+                  path: "",
+                  element: <Blogs />,
+                },
+                { path: "create", element: <CreateBlog /> },
+                { path: ":id", element: <BlogView /> },
+                { path: ":id/edit", element: <CreateBlog mode="edit" /> },
+              ],
             },
           ],
         },
       ],
     },
+    { path: "/login", element: <Login /> },
+    { path: "/register", element: <Register /> },
   ]);
+
   return allRoutes;
 };
-
 export default Index;
