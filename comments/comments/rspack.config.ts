@@ -30,7 +30,7 @@ export default defineConfig({
     // You need to set a unique value that is not equal to other applications
     uniqueName: "comments",
     // publicPath must be configured if using manifest
-    publicPath: "http://localhost:3100/",
+    publicPath: "auto",
   },
 
   experiments: {
