@@ -21,7 +21,8 @@ const App = () => {
               store: "store@https://mfe-blog-auth.netlify.app/remoteEntry.js",
               userActions:
                 "store@https://mfe-blog-auth.netlify.app/remoteEntry.js",
-              comments: "comments@http://localhost:3100/remoteEntry.js",
+              comments:
+                "comments@https://mfe-blog-comments.netlify.app/remoteEntry.js",
             },
           ],
         });

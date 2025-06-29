@@ -3,7 +3,7 @@ export const mfConfig = {
   exposes: {},
   remotes: {
     store: "store@https://mfe-blog-auth.netlify.app/remoteEntry.js", // remote name@URL
-    comments: "comments@http://localhost:3100/remoteEntry.js",
+    comments: "comments@https://mfe-blog-comments.netlify.app/remoteEntry.js",
 
   },
   shared: {
