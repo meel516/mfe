@@ -27,11 +27,14 @@ const Comment = ({
 
   const fetchComments = () => {
     axios
-      .get(`http://localhost:8002/v1/comments/${blogId}/${parentId}`, {
-        headers: {
-          Authorization: `Bearer ${store.getState().user.accessToken}`,
-        },
-      })
+      .get(
+        `https://commentservice-vzt8.onrender.com/v1/comments/${blogId}/${parentId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${store.getState().user.accessToken}`,
+          },
+        }
+      )
       .then((res) => {
         setCommentData(res.data.data);
       });
@@ -40,7 +43,7 @@ const Comment = ({
   const handleAddNewComment = () => {
     axios
       .post(
-        `http://localhost:8002/v1/comments/${blogId}`,
+        `https://commentservice-vzt8.onrender.com/v1/comments/${blogId}`,
         {
           message: newComment,
           blogId: blogId,
@@ -65,7 +68,7 @@ const Comment = ({
   const handleEditComment = (commentId: any) => {
     axios
       .patch(
-        `http://localhost:8002/v1/comments/${blogId}`,
+        `https://commentservice-vzt8.onrender.com/v1/comments/${blogId}`,
         { message: editMessages[commentId], id: commentId },
         {
           headers: {
@@ -85,7 +88,7 @@ const Comment = ({
   const handleAddReply = (parentId: any) => {
     axios
       .post(
-        `http://localhost:8002/v1/comments/${blogId}`,
+        `https://commentservice-vzt8.onrender.com/v1/comments/${blogId}`,
         {
           message: replyMessages[parentId],
           parentId,
