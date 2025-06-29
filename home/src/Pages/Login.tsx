@@ -66,7 +66,7 @@ const Login = () => {
                   dispatch(setName(values.email));
                   dispatch(setAccessToken(res.data.data.accessToken));
                   dispatch(setUserId(res.data.data._id));
-                  navigate("/user");
+                  navigate("/");
                 }
               } catch (err) {
                 console.error("Login failed", err);
