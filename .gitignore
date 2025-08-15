@@ -1,8 +1,7 @@
-# Node modules
-mfe1/node_modules/
-mfe2/node_modules/
+# Ignore all node_modules folders recursively
+**/node_modules/
 
-# Build output
+# Build outputs
 dist/
 build/
 

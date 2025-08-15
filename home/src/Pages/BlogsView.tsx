@@ -34,7 +34,7 @@ const BlogsView = () => {
         user={blog.user}
       />
       <div className="mx-8 mt-4">
-        <Comments blogId={id} parentId={null} />
+        <Comments blogId={id as string} parentId={null} />
       </div>
     </div>
   );
