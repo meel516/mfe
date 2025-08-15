@@ -30,7 +30,7 @@ export default defineConfig({
     // You need to set a unique value that is not equal to other applications
     uniqueName: "profile",
     // publicPath must be configured if using manifest
-    publicPath: isDev ? "http://localhost:8088/" : "/",
+    publicPath: isDev ? "http://localhost:8088/" : "/profile/",
   },
 
   experiments: {
