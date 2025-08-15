@@ -1,15 +1,19 @@
 import ReactDOM from "react-dom/client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import "./index.css";
 import axios from "axios";
+import { v4 as uuidv4, v4 } from "uuid";
 
 const App = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-
+  const [src, setSrc] = useState<string>("");
+  console.log(src, "src state value");
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
+    const key = v4(); // Generate a unique key for the file
+
     if (!file) return;
 
     console.log("Selected file:", file);
@@ -17,21 +21,18 @@ const App = () => {
     try {
       // 1️⃣ Get pre-signed URL from your backend
       const presignRes = await axios.post(
-        "https://p4905653sb.execute-api.us-east-1.amazonaws.com/upload",
+        "https://slbgdkdr12.execute-api.us-east-1.amazonaws.com/upload",
         {
-          key: `uploads/${file.name}`,
+          key: key,
           contentType: file.type, // Use actual type, not text/plain
         }
       );
 
-      const { url } = presignRes.data; // Make sure your backend returns { url: "..." }
+      const { uploadUrl: url, region, bucket } = presignRes.data; // Make sure your backend returns { url: "..." }
 
       // 2️⃣ Upload file directly to storage
-      await axios.put(url, file, {
-        headers: {
-          "Content-Type": file.type,
-        },
-      });
+      await axios.put(url, file);
+      setSrc(`https://${bucket}.s3.${region}.amazonaws.com/${key}`);
 
       console.log("✅ Upload successful");
     } catch (error) {
@@ -43,7 +44,7 @@ const App = () => {
     <form>
       <div className="group w-[100px] rounded-full aspect-square relative">
         <img
-          src="https://avatars.githubusercontent.com/u/12345678?v=4"
+          src={src || "https://avatars.githubusercontent.com/u/12345678?v=4"}
           alt="Profile"
           className="w-full h-full object-cover rounded-full group-hover:opacity-50 transition-opacity duration-300"
         />
