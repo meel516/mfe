@@ -50,4 +50,4 @@ jobs:
 
       # 7️⃣ Deploy Profile MFE to S3
       - name: Deploy Profile MFE to S3
-        run: aws s3 sync profile/build s3://${{ secrets.S3_BUCKET_NAME }}/profile --delete
+        run: aws s3 sync profile/dist s3://${{ secrets.S3_BUCKET_NAME }}/profile --delete
