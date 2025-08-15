@@ -11,6 +11,9 @@ importers:
       '@module-federation/enhanced':
         specifier: ^0.8.9
         version: 0.8.12(@rspack/core@1.2.8)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
+      axios:
+        specifier: ^1.11.0
+        version: 1.11.0
       cross-env:
         specifier: ^10.0.0
         version: 10.0.0
