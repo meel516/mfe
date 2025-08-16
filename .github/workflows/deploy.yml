@@ -39,6 +39,11 @@ jobs:
         run: |
           pnpm install --frozen-lockfile
           pnpm run build
+      - name: Install & build Home MFE
+        working-directory: home
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run build
 
       # 6️⃣ Configure AWS credentials
       - name: Configure AWS credentials
@@ -51,3 +56,5 @@ jobs:
       # 7️⃣ Deploy Profile MFE to S3
       - name: Deploy Profile MFE to S3
         run: aws s3 sync profile/dist s3://${{ secrets.S3_BUCKET_NAME }}/profile --delete
+      - name: Deploy Home MFE to S3
+        run: aws s3 sync home/dist s3://${{ secrets.S3_BUCKET_NAME }}/ --delete
