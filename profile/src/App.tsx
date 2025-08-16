@@ -42,25 +42,32 @@ const App = () => {
   };
 
   return (
-    <form>
-      <div className="group w-[100px] rounded-full aspect-square relative">
+    <form className="flex flex-col items-center gap-4">
+      <div className="relative group w-32 h-32 rounded-full overflow-hidden border-2 border-gray-300 hover:border-blue-500 transition-all duration-300 cursor-pointer">
+        {/* Profile Image */}
         <img
           src={src || "https://avatars.githubusercontent.com/u/12345678?v=4"}
           alt="Profile"
-          className="w-full h-full object-cover rounded-full group-hover:opacity-50 transition-opacity duration-300"
+          className="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover:scale-105"
         />
 
+        {/* Edit Button Overlay */}
         <img
           src={editButton}
           alt="Edit"
-          width={20}
-          height={20}
+          width={28}
+          height={28}
           onClick={() => fileInputRef.current?.click()}
-          className="absolute left-1/2 bottom-[10px] -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+          className="absolute left-1/2 bottom-3 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         />
       </div>
 
-      {/* Hidden file input */}
+      {/* Optional label */}
+      <label className="text-sm text-gray-500">
+        Click the image to change your profile
+      </label>
+
+      {/* Hidden File Input */}
       <input
         ref={fileInputRef}
         type="file"
