@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import "./index.css";
 import axios from "axios";
 import { v4 as uuidv4, v4 } from "uuid";
+import editButton from "./assets/edit.svg"; // Adjust the path as necessary
 
 const App = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -50,7 +51,7 @@ const App = () => {
         />
 
         <img
-          src="edit-button-svgrepo-com.svg"
+          src={editButton}
           alt="Edit"
           width={20}
           height={20}
